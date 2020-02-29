@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_near_me">
+
+    <fragment
+        android:id="@+id/navigation_near_me"
+        android:name="lopez.s.finderfeast.ui.nearme.NearMeFragment"
+        android:label="@string/title_near_me"
+        tools:layout="@layout/fragment_near_me" />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="lopez.s.finderfeast.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_recommendations"
+        android:name="lopez.s.finderfeast.ui.recommendations.RecommendationsFragment"
+        android:label="@string/title_recommendations"
+        tools:layout="@layout/fragment_recommendations" />
+</navigation>
