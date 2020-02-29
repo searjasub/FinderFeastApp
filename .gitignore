@@ -15,3 +15,5 @@
 build.gradle
 app/google-services.json
 .idea/gradle.xml
+.idea/modules/app/google-services.json
+.idea/vcs.xml
