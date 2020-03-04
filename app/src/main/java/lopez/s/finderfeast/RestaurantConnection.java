@@ -18,6 +18,7 @@ public class RestaurantConnection {
     private static String keyCode = "d3b965d17f5d9cdd0c08e4d1d6ed47e2";
     private static AsyncHttpClient client = new AsyncHttpClient();
     private static JSONObject result;
+    private static JSONArray resultArr;
 
 
     public static JSONObject get(String url, RequestParams params) {
@@ -28,6 +29,24 @@ public class RestaurantConnection {
                 // If the response is JSONObject instead of expected JSONArray
                 Log.d("asd", "---------------- this is response : " + response);
                 result = response;
+                try {
+                    JSONObject serverResp = new JSONObject(response.toString());
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+        return result;
+    }
+    public static JSONArray getArr(String url, RequestParams params) {
+        client.addHeader("user-key", keyCode);
+        client.get(getAbsoluteUrl(url), params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] header, JSONArray response) {
+                // If the response is JSONObject instead of expected JSONArray
+                Log.d("asd", "---------------- this is response : " + response);
+                resultArr = response;
 //                try {
 //                    JSONObject serverResp = new JSONObject(response.toString());
 //                } catch (JSONException e) {
@@ -36,10 +55,10 @@ public class RestaurantConnection {
 //                }
             }
         });
-        return result;
+        return resultArr;
     }
 
-    public static JSONObject getNearby(double lat, double lon, double radius) {
+    public static JSONArray getNearby(double lat, double lon, double radius) {
         RequestParams rp = new RequestParams();
         if (radius == 0) {
             radius = 1000;
@@ -47,7 +66,13 @@ public class RestaurantConnection {
         rp.add("lat", Double.toString(lat));
         rp.add("lon", Double.toString(lon));
         rp.add("radius", Double.toString(radius));
-        return get("/search", rp);
+        try {
+            result = get("/search", rp);
+            resultArr = result.getJSONArray("restaurants");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return resultArr;
     }
 
     public static JSONObject getCuisines() {
