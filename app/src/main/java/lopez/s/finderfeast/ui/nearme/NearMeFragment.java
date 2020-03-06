@@ -62,8 +62,6 @@ public class NearMeFragment extends Fragment {
     TextView textbox;
 
     private ListView listview;
-    String list[] = {"Jelly", "Peanut", "Butter", "Jam", "Bread", "Ham", "Turkey", "Sausage", "Mustard", "Mayonnaise", "Lettuce", "Tomato"};
-
     @SuppressLint("FragmentLiveDataObserve")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -132,9 +130,7 @@ public class NearMeFragment extends Fragment {
 //            }
 //        });
         listview = root.findViewById(R.id.listview);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, list);
 
-        listview.setAdapter(arrayAdapter);
         return root;
     }
 
@@ -163,6 +159,13 @@ public class NearMeFragment extends Fragment {
                     double resLon = response.getJSONArray("restaurants").getJSONObject(0).getJSONObject("restaurant").getJSONObject("location").getDouble("latitude");
                     double distance = getDistance("m", 0, 0, resLon, resLat);
                     textbox.setText(response.getJSONArray("restaurants").getJSONObject(0).getJSONObject("restaurant").getString("name") + distance);
+                    String[] list = new String[response.getJSONArray("restaurants").length()];
+                    for(int i = 0; i < response.getJSONArray("restaurants").length(); i++) {
+                        list[i] = response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getString("name") + distance;
+                    }
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, list);
+                    listview.setAdapter(arrayAdapter);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -180,6 +183,7 @@ public class NearMeFragment extends Fragment {
             }
         });
     }
+
     private double getDistance(String unit, double lon1, double lat1, double lon2, double lat2) {
         double radlat1 = Math.PI * lat1/180;
         double radlat2 = Math.PI * lat2/180;
