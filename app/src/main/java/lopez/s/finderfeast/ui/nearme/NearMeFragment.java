@@ -68,13 +68,13 @@ public class NearMeFragment extends Fragment {
         nearMeViewModel =
                 ViewModelProviders.of(this).get(NearMeViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_near_me, container, false);
-        final TextView textView = root.findViewById(R.id.text_near_me);
         nearMeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                //textView.setText(s);
             }
         });
+
 
         requestPermission();
         getUserLocation();
@@ -94,18 +94,7 @@ public class NearMeFragment extends Fragment {
 //        });
         requestPermission();
 //        client = LocationServices.getFusedLocationProviderClient(getActivity());
-        button2 = root.findViewById(R.id.getCategoriesBtn);
-        button2.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                if(ActivityCompat.checkSelfPermission(getActivity(), ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                textbox = root.findViewById(R.id.categories);
-                textbox.setText("Please wait....");
-                getNearBy(null);
-            }
-        });
+
 //
 //
 //        button = root.findViewById(R.id.getLocationBtn);
@@ -130,7 +119,7 @@ public class NearMeFragment extends Fragment {
 //            }
 //        });
         listview = root.findViewById(R.id.listview);
-
+        getNearBy(null);
         return root;
     }
 
@@ -158,7 +147,7 @@ public class NearMeFragment extends Fragment {
                     double resLat = response.getJSONArray("restaurants").getJSONObject(0).getJSONObject("restaurant").getJSONObject("location").getDouble("longitude");
                     double resLon = response.getJSONArray("restaurants").getJSONObject(0).getJSONObject("restaurant").getJSONObject("location").getDouble("latitude");
                     double distance = getDistance("m", 0, 0, resLon, resLat);
-                    textbox.setText(response.getJSONArray("restaurants").getJSONObject(0).getJSONObject("restaurant").getString("name") + distance);
+                    //textbox.setText(response.getJSONArray("restaurants").getJSONObject(0).getJSONObject("restaurant").getString("name") + distance);
                     String[] list = new String[response.getJSONArray("restaurants").length()];
                     for(int i = 0; i < response.getJSONArray("restaurants").length(); i++) {
                         list[i] = response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getString("name") + distance;

@@ -10,7 +10,6 @@ public class NearMeViewModel extends ViewModel {
 
     public NearMeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is Near Me fragment");
     }
 
     public LiveData<String> getText() {
