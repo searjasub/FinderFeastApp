@@ -46,8 +46,8 @@ public class NearMeFragment extends Fragment {
     private Button button;
     private Button button2;
 //    private FusedLocationProviderClient client;
-    private double lat = 40;
-    private double lon = -111;
+    private double lat = 40.7661;
+    private double lon = -111.8906;
     private static final String BASE_URL = "https://developers.zomato.com/api/v2.1/";
     private static String keyCode = "d3b965d17f5d9cdd0c08e4d1d6ed47e2";
     private static AsyncHttpClient client = new AsyncHttpClient();
@@ -116,7 +116,7 @@ public class NearMeFragment extends Fragment {
     }
 
     public void getNearBy(RequestParams params){
-        String url = "/search";
+        String url = "search";
         int radius = 0;
         client.addHeader("user-key", keyCode);
         RequestParams rp = new RequestParams();
@@ -136,7 +136,10 @@ public class NearMeFragment extends Fragment {
                 Log.d("asd", "---------------- this is response : " + response);
                 try {
                     response.getJSONArray("restaurants");
-                    textbox.setText(response.getJSONArray("restaurants").getJSONObject(0).getJSONObject("restaurant").getString("name"));
+                    double resLat = response.getJSONArray("restaurants").getJSONObject(0).getJSONObject("restaurant").getJSONObject("location").getDouble("longitude");
+                    double resLon = response.getJSONArray("restaurants").getJSONObject(0).getJSONObject("restaurant").getJSONObject("location").getDouble("latitude");
+                    double distance = getDistance("m", 0, 0, resLon, resLat);
+                    textbox.setText(response.getJSONArray("restaurants").getJSONObject(0).getJSONObject("restaurant").getString("name") + distance);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -153,6 +156,22 @@ public class NearMeFragment extends Fragment {
                 textbox.setText("Failure to get restaurants");
             }
         });
+    }
+    private double getDistance(String unit, double lon1, double lat1, double lon2, double lat2) {
+        double radlat1 = Math.PI * lat1/180;
+        double radlat2 = Math.PI * lat2/180;
+        double theta = lon1-lon2;
+        double radtheta = Math.PI * theta/180;
+        double dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        if (dist > 1) {
+            dist = 1;
+        }
+        dist = Math.acos(dist);
+        dist = dist * 180/Math.PI;
+        dist = dist * 60 * 1.1515;
+        if (unit=="K") { dist = dist * 1.609344; }
+        if (unit=="N") { dist = dist * 0.8684; }
+        return dist;
     }
     private String getAbsoluteUrl(String relativeUrl) {
         return BASE_URL + relativeUrl;
