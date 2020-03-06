@@ -1,8 +1,13 @@
 package lopez.s.finderfeast.ui.nearme;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +28,11 @@ import androidx.lifecycle.ViewModelProviders;
 //import com.google.android.gms.tasks.OnSuccessListener;
 //import com.loopj.android.http.RequestParams;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+
+import java.util.Objects;
+
 import lopez.s.finderfeast.R;
 //import lopez.s.finderfeast.RestaurantConnection;
 
@@ -33,7 +43,7 @@ public class NearMeFragment extends Fragment {
     private NearMeViewModel nearMeViewModel;
     private Button button;
     private Button button2;
-//    private FusedLocationProviderClient client;
+    private FusedLocationProviderClient client;
     private double lat = 40;
     private double lon = -111;
 
@@ -46,15 +56,24 @@ public class NearMeFragment extends Fragment {
                 ViewModelProviders.of(this).get(NearMeViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_near_me, container, false);
         final TextView textView = root.findViewById(R.id.text_near_me);
-        nearMeViewModel.getText().observe(this, new Observer<String>() {
+        nearMeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
 
-//        requestPermission();
-//        client = LocationServices.getFusedLocationProviderClient(getActivity());
+        requestPermission();
+        getUserLocation();
+//        Activity act = getActivity();
+//        if(act != null) {
+//            try{
+//                client = LocationServices.getFusedLocationProviderClient(act);
+//            }
+//            catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
 //        button2 = root.findViewById(R.id.getCategoriesBtn);
 //        button2.setOnClickListener(new View.OnClickListener(){
 //            @Override
@@ -92,7 +111,6 @@ public class NearMeFragment extends Fragment {
 //                });
 //            }
 //        });
-
         listview = root.findViewById(R.id.listview);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, list);
 
@@ -102,7 +120,18 @@ public class NearMeFragment extends Fragment {
 
 
     private void requestPermission() {
-        ActivityCompat.requestPermissions(getActivity(), new String[]{ACCESS_FINE_LOCATION}, 1);
+        ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{ACCESS_FINE_LOCATION}, 1);
+    }
+
+    private void getUserLocation() {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            System.out.println("There are no permissions granted.");
+        } else {
+            LocationManager locationmanager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            Location location = locationmanager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            lat = location.getLatitude();
+            lon = location.getLongitude();
+        }
     }
 
 }
