@@ -19,7 +19,6 @@ public class RestaurantConnection {
     private static AsyncHttpClient client = new AsyncHttpClient();
     private static JSONObject result;
 
-
     public static JSONObject get(String url, RequestParams params) {
         client.addHeader("user-key", keyCode);
         client.get(getAbsoluteUrl(url), params, new JsonHttpResponseHandler() {
