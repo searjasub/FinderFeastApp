@@ -16,8 +16,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Objects;
-
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -34,11 +32,13 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+        if (currentUser != null) {
+            Toast.makeText(LoginActivity.this, "Welcome back " + currentUser.getDisplayName(),
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
-
-//    private void updateUI(FirebaseUser currentUser) {
-//        loginText.setText(currentUser.getEmail() + "signed in.");
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         loginText = findViewById(R.id.login_info);
         email = findViewById(R.id.sing_up_lastName);
         password = findViewById(R.id.sing_up_password);
-
-//        DatabaseConnection.connect();
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -57,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
-
     }
 
     private void signIn(String email, String password) {
@@ -94,6 +91,5 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login(View view) {
         signIn(email.getText().toString().trim(), password.getText().toString().trim());
-
     }
 }
