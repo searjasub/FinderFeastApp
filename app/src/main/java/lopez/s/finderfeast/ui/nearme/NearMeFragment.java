@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,15 +80,6 @@ public class NearMeFragment extends Fragment {
 
         requestPermission();
         getUserLocation();
-//        Activity act = getActivity();
-//        if(act != null) {
-//            try{
-//                client = LocationServices.getFusedLocationProviderClient(act);
-//            }
-//            catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
 //        button2 = root.findViewById(R.id.getCategoriesBtn);
 //        button2.setOnClickListener(new View.OnClickListener(){
 //            @Override
