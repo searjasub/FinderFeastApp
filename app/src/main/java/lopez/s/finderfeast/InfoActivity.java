@@ -1,7 +1,5 @@
 package lopez.s.finderfeast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +9,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
@@ -22,8 +24,11 @@ public class InfoActivity extends AppCompatActivity {
     private TextView address;
     private ImageView thumb;
     private Button website;
+    private Button favorite;
     private String rawWebsite;
     private MaterialRatingBar materialRatingBar;
+    private DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,8 @@ public class InfoActivity extends AppCompatActivity {
         address = findViewById(R.id.address);
         thumb = findViewById(R.id.thumb);
         website = findViewById(R.id.website);
+        favorite = findViewById(R.id.favorite);
+
         materialRatingBar = findViewById(R.id.ratingBar);
 
         Intent intent = getIntent();
@@ -44,6 +51,7 @@ public class InfoActivity extends AppCompatActivity {
         Glide.with(this).load(intent.getStringExtra("picture")).into(thumb);
         rawWebsite = intent.getStringExtra("url");
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         materialRatingBar.setForegroundGravity(Gravity.TOP);
         materialRatingBar.setEnabled(false);
@@ -53,9 +61,15 @@ public class InfoActivity extends AppCompatActivity {
 
     }
 
+
+
     public void goToWebsite(View view) {
         Uri uriUrl = Uri.parse(rawWebsite);
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);
+    }
+
+    public void addToFavorites(View view){
+
     }
 }
