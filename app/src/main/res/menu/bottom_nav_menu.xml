@@ -8,9 +8,9 @@
 
 
     <item
-        android:id="@+id/navigation_recommendations"
+        android:id="@+id/navigation_favorites"
         android:icon="@drawable/ic_restaurant_black_24dp"
-        android:title="@string/title_recommendations" />
+        android:title="@string/title_favorites" />
 
     <item
         android:id="@+id/navigation_account"

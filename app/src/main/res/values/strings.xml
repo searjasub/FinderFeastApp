@@ -2,7 +2,7 @@
     <string name="app_name">Finder Feast</string>
     <string name="title_near_me">Near Me</string>
     <string name="title_profile">Profile</string>
-    <string name="title_recommendations">Recommendations</string>
+    <string name="title_favorites">Favorites</string>
     <string name="password">Password</string>
     <string name="lastName">Last Name</string>
     <string name="sign_up">Sign up</string>

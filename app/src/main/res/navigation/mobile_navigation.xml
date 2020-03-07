@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/navigation_recommendations"
-        android:name="lopez.s.finderfeast.ui.recommendations.RecommendationsFragment"
-        android:label="@string/title_recommendations"
-        tools:layout="@layout/fragment_recommendations" />
+        android:id="@+id/navigation_favorites"
+        android:name="lopez.s.finderfeast.ui.favorites.FavoritesFragment"
+        android:label="@string/title_favorites"
+        tools:layout="@layout/fragment_favorites" />
 </navigation>

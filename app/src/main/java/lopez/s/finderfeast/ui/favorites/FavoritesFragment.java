@@ -1,4 +1,4 @@
-package lopez.s.finderfeast.ui.recommendations;
+package lopez.s.finderfeast.ui.favorites;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import lopez.s.finderfeast.R;
 
-public class RecommendationsFragment extends Fragment {
+public class FavoritesFragment extends Fragment {
 
-    private RecommendationsViewModel recommendationsViewModel;
+    private FavoritesViewModel favoritesViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        recommendationsViewModel =
-                ViewModelProviders.of(this).get(RecommendationsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_recommendations, container, false);
-        final TextView textView = root.findViewById(R.id.text_recommendations);
-        recommendationsViewModel.getText().observe(this, new Observer<String>() {
+        favoritesViewModel =
+                ViewModelProviders.of(this).get(FavoritesViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_favorites, container, false);
+        final TextView textView = root.findViewById(R.id.text_favorites);
+        favoritesViewModel.getText().observe(getViewLifecycleOwner() , new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
