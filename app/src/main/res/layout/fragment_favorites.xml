@@ -6,7 +6,7 @@
     android:backgroundTint="@color/white">
 
     <TextView
-        android:id="@+id/text_recommendations"
+        android:id="@+id/text_favorites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

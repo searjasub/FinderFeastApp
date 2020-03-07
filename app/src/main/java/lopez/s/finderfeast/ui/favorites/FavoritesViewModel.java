@@ -1,16 +1,16 @@
-package lopez.s.finderfeast.ui.recommendations;
+package lopez.s.finderfeast.ui.favorites;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class RecommendationsViewModel extends ViewModel {
+public class FavoritesViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public RecommendationsViewModel() {
+    public FavoritesViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is Recommendation fragment");
+        mText.setValue("This is Favorites fragment");
     }
 
     public LiveData<String> getText() {
