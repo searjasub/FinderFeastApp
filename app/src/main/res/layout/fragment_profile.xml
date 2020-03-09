@@ -66,16 +66,16 @@
             app:layout_constraintStart_toStartOf="@+id/sing_up_password"
             app:layout_constraintTop_toBottomOf="@+id/sing_up_lastName" />
 
+
         <TextView
             android:id="@+id/sing_up_password"
             android:layout_width="273dp"
             android:layout_height="38dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="28dp"
             android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="@+id/favoritesList"
-            app:layout_constraintStart_toStartOf="@+id/favoritesList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sing_up_email" />
-
 
         <CheckBox
             android:id="@+id/checkbox"
@@ -83,22 +83,12 @@
             android:layout_height="28dp"
             android:layout_marginTop="12dp"
             android:text="@string/show_password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.267"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sing_up_password" />
-
-        <TextView
-            android:id="@+id/favoritesList"
-            android:layout_width="267dp"
-            android:layout_height="128dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center"
-            android:text="@string/favorites_list"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.52"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sing_up_password"
+            app:layout_constraintVertical_bias="0.137" />
 
         <ImageButton
             android:id="@+id/signOutBtn"
