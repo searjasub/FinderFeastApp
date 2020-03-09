@@ -40,9 +40,10 @@
             android:id="@+id/sing_up_name"
             android:layout_width="273dp"
             android:layout_height="38dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="24dp"
             android:gravity="center_vertical"
             app:layout_constraintEnd_toEndOf="@+id/sing_up_lastName"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/sing_up_lastName"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -85,10 +86,10 @@
             android:text="@string/show_password"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintHorizontal_bias="0.297"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sing_up_password"
-            app:layout_constraintVertical_bias="0.137" />
+            app:layout_constraintVertical_bias="0.015" />
 
         <ImageButton
             android:id="@+id/signOutBtn"
