@@ -109,8 +109,8 @@ public class NearMeFragment extends Fragment {
 
                         if (!response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getString("featured_image").isEmpty()) {
 
-                            double resLat = response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getJSONObject("location").getDouble("longitude");
-                            double resLon = response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getJSONObject("location").getDouble("latitude");
+                            double resLat = response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getJSONObject("location").getDouble("latitude");
+                            double resLon = response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getJSONObject("location").getDouble("longitude");
                             final double distance = getDistance("K", 0, 0, resLon, resLat);
                             System.out.println(response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getString("name"));
                             System.out.println(response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getString("featured_image"));
