@@ -173,7 +173,8 @@ public class NearMeFragment extends Fragment {
                             cardView.addView(childLinear);
                             linearLayout.addView(cardView);
 
-                            final double distance2 = distance;
+                            double distanceRounded = Math.round(distance);
+                            final double distance2 = distanceRounded;
 
                             final int finalI = i;
                             cardView.setOnClickListener(new View.OnClickListener() {
@@ -184,7 +185,7 @@ public class NearMeFragment extends Fragment {
                                         intent.putExtra("name", response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getString("name"));
                                         intent.putExtra("url", response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getString("url"));
                                         intent.putExtra("rating", response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getJSONObject("user_rating").getString("aggregate_rating"));
-                                        intent.putExtra("distance", distance2 + "");
+                                        intent.putExtra("distance", "About " + distance2 + " miles away");
                                         intent.putExtra("address",response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getJSONObject("location").getString("address"));
                                         intent.putExtra("picture", response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getString("featured_image"));
                                     } catch (JSONException e) {
