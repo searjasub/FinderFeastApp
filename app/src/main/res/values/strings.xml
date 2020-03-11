@@ -16,4 +16,5 @@
     <string name="favorites_list">Favorites List</string>
     <string name="log_out">Log out</string>
     <string name="go_to_website">Go To Website</string>
+    <string name="favorite">Add To Favorites</string>
 </resources>
