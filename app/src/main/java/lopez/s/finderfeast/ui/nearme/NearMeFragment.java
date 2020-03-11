@@ -111,7 +111,7 @@ public class NearMeFragment extends Fragment {
 
                             double resLat = response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getJSONObject("location").getDouble("latitude");
                             double resLon = response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getJSONObject("location").getDouble("longitude");
-                            final double distance = getDistance("K", lon, lat, resLon, resLat);
+                            double distance = getDistance("K", lon, lat, resLon, resLat);
                             System.out.println(response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getString("name"));
                             System.out.println(response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getString("featured_image"));
                             System.out.println(distance);
@@ -173,6 +173,9 @@ public class NearMeFragment extends Fragment {
                             cardView.addView(childLinear);
                             linearLayout.addView(cardView);
 
+                            double distanceRounded = Math.round(distance);
+                            final double distance2 = distanceRounded;
+
                             final int finalI = i;
                             cardView.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -182,7 +185,7 @@ public class NearMeFragment extends Fragment {
                                         intent.putExtra("name", response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getString("name"));
                                         intent.putExtra("url", response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getString("url"));
                                         intent.putExtra("rating", response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getJSONObject("user_rating").getString("aggregate_rating"));
-                                        intent.putExtra("distance", distance + "");
+                                        intent.putExtra("distance", "About " + distance2 + " miles away");
                                         intent.putExtra("address",response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getJSONObject("location").getString("address"));
                                         intent.putExtra("picture", response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getString("featured_image"));
                                     } catch (JSONException e) {
