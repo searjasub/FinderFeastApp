@@ -12,10 +12,35 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
+
+import android.content.Intent;
+import android.os.Bundle;
+import androidx.annotation.NonNull;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -27,8 +52,9 @@ public class InfoActivity extends AppCompatActivity {
     private Button favorite;
     private String rawWebsite;
     private MaterialRatingBar materialRatingBar;
-    private DatabaseReference mDatabase;
-
+    private FirebaseAuth fba;
+    private FirebaseUser fbu;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,27 +67,23 @@ public class InfoActivity extends AppCompatActivity {
         thumb = findViewById(R.id.thumb);
         website = findViewById(R.id.website);
         favorite = findViewById(R.id.favorite);
-
+        fba = FirebaseAuth.getInstance();
+        fbu = fba.getCurrentUser();
         materialRatingBar = findViewById(R.id.ratingBar);
 
-        Intent intent = getIntent();
+        intent = getIntent();
         name.setText(intent.getStringExtra("name"));
         distance.setText(intent.getStringExtra("distance"));
         address.setText(intent.getStringExtra("address"));
         Glide.with(this).load(intent.getStringExtra("picture")).into(thumb);
         rawWebsite = intent.getStringExtra("url");
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
         materialRatingBar.setForegroundGravity(Gravity.TOP);
         materialRatingBar.setEnabled(false);
         materialRatingBar.setNumStars(5);
         materialRatingBar.setRating(Float.parseFloat(intent.getStringExtra("rating")));
         materialRatingBar.setPadding(0, 0, 0, 20);
-
     }
-
-
 
     public void goToWebsite(View view) {
         Uri uriUrl = Uri.parse(rawWebsite);
@@ -70,6 +92,18 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     public void addToFavorites(View view){
+        String email = fbu.getEmail();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> restaurant = new HashMap<>();
+        String rName = intent.getStringExtra("name");
+        System.out.println(rName);
+        restaurant.put("name",intent.getStringExtra("name"));
+        restaurant.put("distance",intent.getStringExtra("distance"));
+        restaurant.put("address",intent.getStringExtra("address"));
+        restaurant.put("thumb",intent.getStringExtra("thumb"));
+        restaurant.put("website",rawWebsite);
+        restaurant.put("rating",intent.getStringExtra("rating"));
+        db.collection(email).document(rName).set(restaurant);
 
     }
 }
