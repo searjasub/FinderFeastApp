@@ -83,6 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     //This method will change the screen from the sign up page back to the main login page
     public void back(View view) {
-
+        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 }
