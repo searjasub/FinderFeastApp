@@ -38,6 +38,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -100,10 +102,9 @@ public class InfoActivity extends AppCompatActivity {
         restaurant.put("name",intent.getStringExtra("name"));
         restaurant.put("distance",intent.getStringExtra("distance"));
         restaurant.put("address",intent.getStringExtra("address"));
-        restaurant.put("thumb",intent.getStringExtra("thumb"));
+        restaurant.put("picture",intent.getStringExtra("picture"));
         restaurant.put("website",rawWebsite);
         restaurant.put("rating",intent.getStringExtra("rating"));
         db.collection(email).document(rName).set(restaurant);
-
     }
 }
