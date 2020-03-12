@@ -45,12 +45,6 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-//import com.google.android.gms.location.FusedLocationProviderClient;
-//import com.google.android.gms.location.LocationServices;
-//import com.google.android.gms.tasks.OnSuccessListener;
-//import com.loopj.android.http.RequestParams;
-//import lopez.s.finderfeast.RestaurantConnection;
-
 public class NearMeFragment extends Fragment {
 
     private NearMeViewModel nearMeViewModel;
@@ -68,12 +62,6 @@ public class NearMeFragment extends Fragment {
         nearMeViewModel =
                 ViewModelProviders.of(this).get(NearMeViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_near_me, container, false);
-        nearMeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                //textView.setText(s);
-            }
-        });
 
         requestPermission();
         getUserLocation();
@@ -117,11 +105,8 @@ public class NearMeFragment extends Fragment {
                             System.out.println(distance);
 
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-
                             MaterialCardView cardView = new MaterialCardView(getContext());
                             cardView.setPreventCornerOverlap(true);
-//                            cardView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             cardView.setMinimumHeight(500);
                             cardView.setLayoutParams(params);
 
@@ -153,11 +138,6 @@ public class NearMeFragment extends Fragment {
                             restaurantNameTV.setTypeface(Typeface.DEFAULT_BOLD);
                             restaurantNameTV.setText(response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getString("name"));
 
-//                            TextView distanceTV = new TextView(getContext());
-//                            distanceTV.setGravity(Gravity.CENTER);
-//                            distanceTV.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//                            distanceTV.setPadding(0, 0, 0, 20);
-//                            distanceTV.setText(distance + "");
                             MaterialRatingBar materialRatingBar = new MaterialRatingBar(getContext());
                             materialRatingBar.setForegroundGravity(Gravity.TOP);
                             materialRatingBar.setEnabled(false);
@@ -186,6 +166,7 @@ public class NearMeFragment extends Fragment {
                                         intent.putExtra("url", response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getString("url"));
                                         intent.putExtra("rating", response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getJSONObject("user_rating").getString("aggregate_rating"));
                                         intent.putExtra("distance", "About " + distance2 + " miles away");
+                                        intent.putExtra("rawDistance" , distance2 + "");
                                         intent.putExtra("address",response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getJSONObject("location").getString("address"));
                                         intent.putExtra("picture", response.getJSONArray("restaurants").getJSONObject(finalI).getJSONObject("restaurant").getString("featured_image"));
                                     } catch (JSONException e) {
@@ -194,8 +175,6 @@ public class NearMeFragment extends Fragment {
                                     startActivity(intent);
                                 }
                             });
-                        } else {
-                            System.out.println("No picture for " + response.getJSONArray("restaurants").getJSONObject(i).getJSONObject("restaurant").getString("name"));
                         }
                     }
                 } catch (JSONException e) {

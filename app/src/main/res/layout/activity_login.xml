@@ -21,7 +21,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/sing_up_lastName"
+        android:id="@+id/sign_up_lastName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sing_up_lastName" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_lastName" />
 
     <Button
         android:id="@+id/login"
